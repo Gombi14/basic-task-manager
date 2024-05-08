@@ -4,8 +4,6 @@ require "acciones.php";
 
 //ejecutas las funciones que del archivo tm_connexion.php
 //escli();
-conn_mysql();
-
 //action es igual al primer argumento en minusculas
 
 $action=strtolower($argv[1]);

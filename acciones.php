@@ -8,13 +8,14 @@ function conn_mysql(){
   $database = "task_manager";
   
   // Create connection
-  $conn = new mysqli($servername, $username, $password,$database);
+  $conn = mysqli_connect($servername, $username, $password,$database);
+  
   // Check connection
   if (!$conn) {
-    die( "Connection failed: " . mysqli_connect_error() );
-  }else{
-    return $conn;
-    }
+    die("Conexión fallida: " . mysqli_connect_error());
+  }
+
+  return $conn;
 }
 
 
@@ -56,12 +57,23 @@ function delete_data(){
 
 
 function list_table(){
-    $conn = conn_mysql();
-echo 'dedede';die();
-    $sql='SELECT * FROM task';
+  $conn = conn_mysql();
 
-    $result=$conn->query($sql);
+  // Query para seleccionar todas las tareas
+  $sql = "SELECT * FROM task";
+  $result = mysqli_query($conn, $sql);
 
-    print_r($result);
+  // Verificar si hay resultados y mostrarlos
+  if (mysqli_num_rows($result) > 0) {
+      echo "ID - Nombre de la tarea\n";
+      while($row = mysqli_fetch_assoc($result)) {
+          echo $row["id"] . " - " . $row["task_name"] . "\n";
+      }
+  } else {
+      echo "No se encontraron tareas.\n";
+  }
+
+  // Cerrar conexión
+  mysqli_close($conn);
 }
 
