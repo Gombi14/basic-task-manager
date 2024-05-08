@@ -1,25 +1,26 @@
 <?php
 
-require "tm_connexion.php";
+require "acciones.php";
 
 //ejecutas las funciones que del archivo tm_connexion.php
-escli();
-
-
-
-//declarar las constantes
-const ACTION1 = 'save';
-const ACTION2 = 'update';
-const ACTION3 = 'delete';
-const ACTION4 = 'list';
+//escli();
+conn_mysql();
 
 //action es igual al primer argumento en minusculas
+
 $action=strtolower($argv[1]);
 
-switch($action){
-  case(ACTION1){
-    if($argv>6){
-      show_help();
-    }
-  }
+if($argv[1]="save"){
+  post();
+}elseif($argv[1]="update"){
+  update();
+}elseif($argv[1]="delete"){
+  delete_data();
+}elseif($argv[1]="list"){
+  list_table();
+}elseif($argv[1]="help"){
+  show_help();
+}else{
+  echo "Error no se ha encontrado la orden.";
+  show_help();
 }
