@@ -29,12 +29,12 @@ function escli(){
 
 
 function show_help(){
-    echo("La syntaxis es:");
-    echo("Post: php FILENAME.php post 'title' 'content' 'status'");
-    echo("Update: php FILENAME.php update 'id' 'title' 'content' 'status'");
-    echo("Delete: php FILENAME.php delete 'id'");
-    echo("List: php FILENAME.php list");
-    echo("Help: php FILENAME.php help");
+    echo("La syntaxis es:\n");
+    echo("Post: \tphp FILENAME.php post 'title' 'content' 'status'\n");
+    echo("Update:\tphp FILENAME.php update 'id' 'title' 'content' 'status'\n");
+    echo("Delete:\tphp FILENAME.php delete 'id'\n");
+    echo("List: \tphp FILENAME.php list\n");
+    echo("Help: \tphp FILENAME.php help\n");
 }
 
 
@@ -65,10 +65,10 @@ function list_table(){
 
   // Verificar si hay resultados y mostrarlos
   if (mysqli_num_rows($result) > 0) {
-      echo "ID - Nombre de la tarea\n";
-      while($row = mysqli_fetch_assoc($result)) {
-          echo $row["id"] . " - " . $row["task_name"] . "\n";
-      }
+    echo "|ID | Title | Content | Status\n";
+    while($row = mysqli_fetch_assoc($result)) {
+      echo "| ". $row["id"] . " | " . $row["title"] ." | ". $row["content"] . " | " . $row["status"] . " | ". "\n";
+    }
   } else {
       echo "No se encontraron tareas.\n";
   }

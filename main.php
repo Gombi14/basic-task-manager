@@ -8,15 +8,15 @@ require "acciones.php";
 
 $action=strtolower($argv[1]);
 
-if($argv[1]="save"){
+if($action=="save"){
   post();
-}elseif($argv[1]="update"){
+}elseif($action=="update"){
   update();
-}elseif($argv[1]="delete"){
+}elseif($action=="delete"){
   delete_data();
-}elseif($argv[1]="list"){
+}elseif($action=="list"){
   list_table();
-}elseif($argv[1]="help"){
+}elseif($action=="help"){
   show_help();
 }else{
   echo "Error no se ha encontrado la orden.";
