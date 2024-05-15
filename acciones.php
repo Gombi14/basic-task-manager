@@ -38,21 +38,52 @@ function show_help(){
 }
 
 
-function post(){
-    conn_mysql();
+function post($title,$content,$status){
+  $conn=conn_mysql();
+
+  $sql="INSERT INTO task(title, content, status) VALUES ('$title','$content','$status')";
+
+  if(mysqli_query($conn,$sql)){
+    echo"Se han insertado los datos correctamente.\n";
+  }else{
+    echo'error'.$sql."\n".mysqli_error($conn);
+  }
+
+  mysqli_close($conn);
 
 }
 
 
-function update(){
-    conn_mysql();
+function update($id,$title,$content,$status){
+  $conn=conn_mysql();
 
+  $sql="UPDATE task SET title=$title, content = $content, status=$status WHERE id=$id";
+
+  $result=mysqli_query($conn,$sql);
+
+  if($result){
+    echo"Actualizado correctamente";
+  }else{
+    echo "error".mysqli_error($conn);
+  }
+
+  mysqli_close($conn);
 }
 
 
-function delete_data(){
-    conn_mysql();
+function delete_data($id){
+$conn=conn_mysql();
 
+$sql="DELETE FROM task WHERE id = $id";
+
+$result=mysqli_query($conn,$sql);
+
+if($result){
+  echo"Se ha elinado la tarea correctamente\n";
+}else{
+  echo"error\n".mysqli_error($conn);  
+}
+  mysqli_close($conn);
 }
 
 
@@ -66,6 +97,7 @@ function list_table(){
   // Verificar si hay resultados y mostrarlos
   if (mysqli_num_rows($result) > 0) {
     echo "|ID | Title | Content | Status\n";
+    //$row es como una especie de diccionario con sus identificadores en este caso id title content y status
     while($row = mysqli_fetch_assoc($result)) {
       echo "| ". $row["id"] . " | " . $row["title"] ." | ". $row["content"] . " | " . $row["status"] . " | ". "\n";
     }
@@ -76,4 +108,3 @@ function list_table(){
   // Cerrar conexión
   mysqli_close($conn);
 }
-
