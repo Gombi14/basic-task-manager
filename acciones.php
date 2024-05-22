@@ -53,18 +53,21 @@ function post($title,$content,$status){
 
 }
 
+function update($id, $title, $content, $status) {
+  $conn = conn_mysql();
 
-function update($id,$title,$content,$status){
-  $conn=conn_mysql();
+  //evita los caracteres especiales para que no haya errores
+  $id = mysqli_real_escape_string($conn, $id);
+  $title = mysqli_real_escape_string($conn, $title);
+  $content = mysqli_real_escape_string($conn, $content);
+  $status = mysqli_real_escape_string($conn, $status);
 
-  $sql="UPDATE task SET title=$title, content = $content, status=$status WHERE id=$id";
+  $sql = "UPDATE task SET title='$title', content='$content', status='$status' WHERE id='$id'";
 
-  $result=mysqli_query($conn,$sql);
-
-  if($result){
-    echo"Actualizado correctamente";
-  }else{
-    echo "error".mysqli_error($conn);
+  if (mysqli_query($conn, $sql)) {
+    echo "Actualizado correctamente\n";
+  } else {
+    echo "Error: " . mysqli_error($conn);
   }
 
   mysqli_close($conn);
@@ -74,16 +77,17 @@ function update($id,$title,$content,$status){
 function delete_data($id){
 $conn=conn_mysql();
 
-$sql="DELETE FROM task WHERE id = $id";
+  $sql="DELETE FROM task WHERE id = $id";
 
-$result=mysqli_query($conn,$sql);
+  $result=mysqli_query($conn,$sql);
 
-if($result){
-  echo"Se ha elinado la tarea correctamente\n";
-}else{
-  echo"error\n".mysqli_error($conn);  
-}
-  mysqli_close($conn);
+  if($result){
+    echo"Se ha elinado la tarea correctamente\n";
+  }else{
+    echo"error\n".mysqli_error($conn);  
+  }
+    mysqli_close($conn);
+    
 }
 
 

@@ -3,9 +3,10 @@
 require "acciones.php";
 
 escli();
-
 //para evitar errores con mayusculas y minusculas
 $action=strtolower($argv[1]);
+
+//print_r($argv);
 
 if($action=="post"){
   if($argc!=5){
